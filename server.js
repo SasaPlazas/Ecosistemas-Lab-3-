@@ -7,38 +7,31 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ruta principal - página de inicio
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Rutas para servir tus apps
+
 app.use("/tiendas", express.static(path.join(__dirname, "tiendas")));
 app.use("/repartidor", express.static(path.join(__dirname, "repartidor")));
 app.use("/usuario", express.static(path.join(__dirname, "usuario")));
 
-// ========================================
-// VARIABLES SIMPLES PARA GUARDAR DATOS
-// ========================================
-// Aquí guardamos las tiendas (se pierden al reiniciar el servidor)
+
 let tiendas = [];
 
-// Aquí guardamos los usuarios (se pierden al reiniciar el servidor)
+
 let usuarios = [];
 
-// Aquí guardamos las órdenes (se pierden al reiniciar el servidor)
-let ordenes = []; // Si no existe, agrégala al inicio
+
+let ordenes = []; 
 
 console.log('Servidor iniciado. Las tiendas y usuarios se guardan en memoria.');
 
-// ========================================
-// ENDPOINTS PARA TIENDAS
-// ========================================
-// Cuando alguien crea una tienda
+
 app.post("/api/tiendas", (req, res) => {
   const { nombre, categoria, descripcion, direccion, telefono } = req.body;
   
-  // Verificar que todos los campos estén llenos
+
   if (!nombre || !categoria || !direccion || !telefono) {
     return res.status(400).json({ 
       success: false, 
@@ -46,7 +39,7 @@ app.post("/api/tiendas", (req, res) => {
     });
   }
   
-  // Crear nueva tienda
+
   const nuevaTienda = {
     id: Date.now(),
     nombre,
@@ -56,8 +49,7 @@ app.post("/api/tiendas", (req, res) => {
     telefono,
     productos: []
   };
-  
-  // Agregar a la lista
+
   tiendas.push(nuevaTienda);
   
   console.log("Nueva tienda creada:", nuevaTienda.nombre);
@@ -69,7 +61,6 @@ app.post("/api/tiendas", (req, res) => {
   });
 });
 
-// Cuando alguien quiere ver todas las tiendas
 app.get("/api/tiendas", (req, res) => {
   res.json({
     success: true,
@@ -77,12 +68,11 @@ app.get("/api/tiendas", (req, res) => {
   });
 });
 
-// Cuando alguien agrega un producto a una tienda
+
 app.post("/api/tiendas/:tiendaId/productos", (req, res) => {
   const tiendaId = parseInt(req.params.tiendaId);
   const { nombre, precio, imagen, descripcion } = req.body;
-  
-  // Buscar la tienda
+
   const tienda = tiendas.find(t => t.id === tiendaId);
   if (!tienda) {
     return res.status(404).json({ 
@@ -91,7 +81,6 @@ app.post("/api/tiendas/:tiendaId/productos", (req, res) => {
     });
   }
   
-  // Verificar campos obligatorios
   if (!nombre || !precio) {
     return res.status(400).json({ 
       success: false, 
@@ -99,7 +88,6 @@ app.post("/api/tiendas/:tiendaId/productos", (req, res) => {
     });
   }
   
-  // Crear nuevo producto
   const nuevoProducto = {
     id: Date.now(),
     nombre,
@@ -108,7 +96,7 @@ app.post("/api/tiendas/:tiendaId/productos", (req, res) => {
     descripcion: descripcion || "Sin descripción"
   };
   
-  // Agregar producto a la tienda
+
   tienda.productos.push(nuevoProducto);
   
   console.log("Producto agregado:", nuevoProducto.nombre);
@@ -120,22 +108,17 @@ app.post("/api/tiendas/:tiendaId/productos", (req, res) => {
   });
 });
 
-// ========================================
-// ENDPOINTS PARA USUARIOS
-// ========================================
-// Cuando alguien se registra
 app.post("/api/usuarios/registro", (req, res) => {
   const { nombre, correo, contraseña } = req.body;
   
-  // Verificar campos obligatorios
+
   if (!nombre || !correo || !contraseña) {
     return res.status(400).json({ 
       success: false, 
       message: "Faltan campos obligatorios" 
     });
   }
-  
-  // Verificar si el correo ya existe
+
   const usuarioExistente = usuarios.find(u => u.correo === correo);
   if (usuarioExistente) {
     return res.status(400).json({ 
@@ -143,8 +126,7 @@ app.post("/api/usuarios/registro", (req, res) => {
       message: "El correo ya está registrado" 
     });
   }
-  
-  // Crear nuevo usuario
+
   const nuevoUsuario = {
     id: Date.now(),
     nombre,
@@ -152,7 +134,6 @@ app.post("/api/usuarios/registro", (req, res) => {
     contraseña
   };
   
-  // Agregar a la lista
   usuarios.push(nuevoUsuario);
   
   console.log("Nuevo usuario registrado:", nuevoUsuario.nombre);
@@ -168,11 +149,9 @@ app.post("/api/usuarios/registro", (req, res) => {
   });
 });
 
-// Cuando alguien hace login
 app.post("/api/usuarios/login", (req, res) => {
   const { correo, contraseña } = req.body;
   
-  // Verificar campos obligatorios
   if (!correo || !contraseña) {
     return res.status(400).json({ 
       success: false, 
@@ -180,7 +159,7 @@ app.post("/api/usuarios/login", (req, res) => {
     });
   }
   
-  // Buscar usuario
+
   const usuario = usuarios.find(u => u.correo === correo && u.contraseña === contraseña);
   
   if (!usuario) {
@@ -203,7 +182,6 @@ app.post("/api/usuarios/login", (req, res) => {
   });
 });
 
-// Para ver todos los usuarios (solo para debugging)
 app.get("/api/usuarios", (req, res) => {
   res.json({
     success: true,
@@ -215,18 +193,13 @@ app.get("/api/usuarios", (req, res) => {
   });
 });
 
-// ========================================
-// ENDPOINTS PARA ORDENES
-// ========================================
-// Cuando alguien crea una orden
+
 app.post('/api/ordenes', (req, res) => {
-    // Asigna un id único y estado "pendiente"
     const nuevaOrden = { ...req.body, id: Date.now(), estado: "pendiente", repartidor: null };
     ordenes.push(nuevaOrden);
     res.json({ success: true });
 });
 
-// Cuando alguien quiere ver sus órdenes
 app.get('/api/ordenes', (req, res) => {
     const estado = req.query.estado;
     const repartidor = req.query.repartidor;
@@ -241,7 +214,6 @@ app.get('/api/ordenes', (req, res) => {
     res.json({ success: true, ordenes: resultado });
 });
 
-// Aceptar orden (cambiar estado y asignar repartidor)
 app.post('/api/ordenes/:id/aceptar', (req, res) => {
     const id = parseInt(req.params.id);
     const { repartidor } = req.body;
@@ -254,7 +226,6 @@ app.post('/api/ordenes/:id/aceptar', (req, res) => {
     res.json({ success: true });
 });
 
-// Cambiar estado de una tienda (abierta/cerrada)
 app.put('/api/tiendas/:id/estado', (req, res) => {
     const id = parseInt(req.params.id);
     const { abierta } = req.body;
@@ -267,7 +238,6 @@ app.put('/api/tiendas/:id/estado', (req, res) => {
     }
 });
 
-// Iniciar servidor
 app.listen(3000, () => console.log("Servidor corriendo en http://localhost:3000"));
 
 
