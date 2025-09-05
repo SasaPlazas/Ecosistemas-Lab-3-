@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuario - Eco</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <a href="/" class="back-button">Volver al inicio</a>
+    
+    <div id="login-container" class="login-container">
+        <form class="login-form" id="login-form">
+            <h1>Iniciar Sesión</h1>
+            
+            <div class="form-group">
+                <label for="user-name">Nombre *</label>
+                <input type="text" id="user-name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="user-email">Correo Electrónico *</label>
+                <input type="email" id="user-email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="user-password">Contraseña *</label>
+                <input type="password" id="user-password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Iniciar Sesión</button>
+            
+            <div class="register-link">
+                ¿No tienes cuenta? <a href="#" id="show-register">Regístrate aquí</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="register-container" class="login-container" style="display: none;">
+        <form class="login-form" id="register-form">
+            <h1>Registro de Usuario</h1>
+            
+            <div class="form-group">
+                <label for="reg-name">Nombre *</label>
+                <input type="text" id="reg-name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="reg-email">Correo Electrónico *</label>
+                <input type="email" id="reg-email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="reg-password">Contraseña *</label>
+                <input type="password" id="reg-password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Registrarse</button>
+            
+            <div class="register-link">
+                ¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión aquí</a>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="user-name" id="user-name-display">Usuario</div>
+                    <div class="user-email" id="user-email-display">usuario@ejemplo.com</div>
+                </div>
+                <button class="logout-btn" id="logout-btn">Cerrar Sesión</button>
+            </div>
+
+            <div class="tiendas-section">
+                <h3>Tiendas Disponibles</h3>
+                <div id="tiendas-container">
+        
+            </div>
+
+            <div id="ordenes-container"></div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="productos-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-tienda-nombre">Productos de la Tienda</h3>
+                <button class="close-modal" id="close-modal">Cerrar</button>
+            </div>
+            <div id="productos-container">
+            </div>
+        </div>
+    </div>
+    <div id="carrito-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Carrito</h3>
+                <button class="close-modal" id="cerrar-carrito-modal">Cerrar</button>
+            </div>
+            <div id="carrito-modal-contenido"></div>
+            <button id="crear-orden-btn" class="crear-orden-btn" style="margin-top:1rem;">Crear orden</button>
+        </div>
+    </div>
+
+    <div id="orden-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Resumen de Orden</h3>
+                <button class="close-modal" id="cerrar-orden-modal">Cerrar</button>
+            </div>
+            <div id="orden-modal-contenido"></div>
+            <button id="finalizar-orden-btn" class="crear-orden-btn" style="margin-top:1rem;">Ordenar</button>
+        </div> 
+    </div>
+
+    
+
+    <button id="abrir-carrito-btn" style="
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #a8edea, #fed6e3);
+        color: #2d3748;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        cursor: pointer;
+        z-index: 20000;
+        display: none;
+    ">🛒</button>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

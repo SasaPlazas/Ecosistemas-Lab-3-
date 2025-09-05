@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repartidor</title>
+    <link rel="stylesheet" href="styles.css">
+  
+</head>
+
+<body>
+    <a href="/" class="back-button"> Volver al inicio</a>
+
+    <div id="login-container">
+        <form id="login-form">
+            <h2>Iniciar sesión como repartidor</h2>
+            <input type="text" id="rep-nombre" placeholder="Nombre" required>
+            <input type="password" id="rep-password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+    </div>
+
+    <div id="dashboard" style="display:none;">
+        <h2>Órdenes disponibles</h2>
+        <div id="ordenes-disponibles"></div>
+        <h2>Órdenes aceptadas</h2>
+        <div id="ordenes-aceptadas"></div>
+        <button id="logout-btn">Cerrar sesión</button>
+    </div>
+
+    <div id="orden-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="close-modal" style="cursor:pointer;">❌</span>
+            <div id="orden-detalle"></div>
+            <button id="aceptar-orden-btn">Aceptar orden</button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

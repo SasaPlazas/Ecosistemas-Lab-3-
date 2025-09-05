@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+       
+    </style>
+</head>
+
+<body>
+    <a href="/" class="back-button">Volver al inicio</a>
+    
+    <div id="login-container" class="login-container">
+        <form class="login-form" id="login-form">
+            <h1>Configuración de Tienda</h1>
+            
+            <div class="form-group">
+                <label for="store-name">Nombre de la Tienda *</label>
+                <input type="text" id="store-name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="store-category">Categoría *</label>
+                <select id="store-category" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="restaurante">Restaurante</option>
+                    <option value="tienda">Tienda de Conveniencia</option>
+                    <option value="farmacia">Farmacia</option>
+                    <option value="ropa">Ropa y Accesorios</option>
+                    <option value="electronica">Electrónica</option>
+                    <option value="hogar">Hogar y Jardín</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="store-description">Descripción</label>
+                <textarea id="store-description" rows="3" placeholder="Describe tu tienda..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="store-address">Dirección *</label>
+                <input type="text" id="store-address" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="store-phone">Teléfono *</label>
+                <input type="tel" id="store-phone" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <div id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h1 id="store-title">Mi Tienda</h1>
+                    <div style="margin: 20px 0;">
+                        <label class="switch">
+                            <input type="checkbox" id="switch-tienda">
+                            <span class="slider"></span>
+
+                        </label>
+                        <span id="estado-tienda-label" style="margin-left:10px; font-weight:bold;">Cerrada</span>
+                    </div>
+                    <button id="logout-btn" style="
+                        background: linear-gradient(135deg, #e53e3e, #c53030);
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 25px;
+                        cursor: pointer;
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    ">Cerrar Sesión</button>
+                </div>
+                <div class="store-info" id="store-info">
+                </div>
+            </div>
+
+            <div class="dashboard-sections">
+                <div class="section">
+                    <h3>Productos</h3>
+                    
+                    <div class="add-product-form">
+                        <h4>➕ Agregar Nuevo Producto</h4>
+                        <form id="add-product-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="product-name">Nombre *</label>
+                                    <input type="text" id="product-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-price">Precio *</label>
+                                    <input type="number" id="product-price" step="0.01" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-image">URL de la Imagen</label>
+                                <input type="url" id="product-image" placeholder="https://ejemplo.com/imagen.jpg">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-description">Descripción</label>
+                                <textarea id="product-description" rows="2" placeholder="Describe el producto..."></textarea>
+                            </div>
+                            <button type="submit" class="add-product-btn">Agregar Producto</button>
+                        </form>
+                    </div>
+                    
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Ingresos</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-revenue">$0</div>
+                            <div class="stat-label">Ingresos Totales</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-orders">0</div>
+                            <div class="stat-label">Pedidos Totales</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="total-products">0</div>
+                            <div class="stat-label">Productos</div>
+                        </div>
+                    </div>
+
+                    <div class="productos-list" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h4 style="color: #4a5568; margin: 0;">Lista de Productos</h4>
+                        <button id="clear-all-products" 
+                                    style="
+                                    background: linear-gradient(135deg, #f56565, #e53e3e);
+                                    color: white;
+                                    border: none;
+                                    padding: 8px 16px;
+                                    border-radius: 8px;
+                                    cursor: pointer;
+                                    font-weight: 600;
+                                    font-size: 0.9rem;
+                                    transition: all 0.3s ease;
+                                            ">Limpiar Todos</button>
+                    </div>
+                    
+                    <div class="products-list" id="products-list">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
